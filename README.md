@@ -22,36 +22,33 @@
 
 ### What I learned
 
-I learned how to implement the MailChimp API in this project, as well as reinforcing my knowledge of Node and Express. I also used nodemon for deploying locally, and 
+I learned how to implement the MailChimp API in this project, as well as reinforced my knowledge of Node and Express. I also used Nodemon for deploying locally, and Heroku for deploying it to the web, which I found to be a convenient and resourceful deploying app. I also relied heavily on JSON destructuring in order to get the values and variables I needed to send the user's data to my MailChimp emailing list.
 
-Code written in this project that I am proud of:
+Code written in this project that I want to highlight:
 
-```JSX
-function deleteItem(id) {
-    setItems((prevItems) => {
-      return prevItems.filter((item, index) => {
-        return index !== id;
-      });
-    });
-  }
+```Node.js
+async function run() {
+const response = await mailchimp.lists.addListMember(audienceId, {
+ email_address: subscribingUser.email,
+ status: "subscribed",
+ merge_fields: {
+ FNAME: subscribingUser.firstName,
+ LNAME: subscribingUser.lastName
+}
+});
 ```
+First time using async functions in any project of mine. While still getting the hang of async and promise functions, I used it in this project to add users' information into a specific mailing list based on the audience ID and subscribe them to it.
 
-This is the code used to create the doubleClick function of deleting an item. I used the useState method of setItems to get the array of all the ToDo list items and return a filtered array of filtered items along with their index number. After this, I returned all of the items in the array except for the index of the one clicked, which was deleted.
-
-```JSX
-<div className="form">
-        <input onChange={handleChange} type="text" value={inputText} />
-        <button onClick={addItem}>
-          <span>Add</span>
-        </button>
-      </div>
+```Node.js
+run().catch(e => res.sendFile(__dirname + "/failure.html"));
+});
 ```
-
-This code is used for the form of the ToDo list. It was fun using different values and props for elements and exporting and importing code that wasn't originally made in the current document. This is what set JSX apart from standard HTML and JavaScript, and is also what makes it so much fun to work with.
+This line of code, after running the run() function, catches errors using another catch() function, and once an error is found, the /failure.html page is sent to the user, where they are able to go back to the main page and try again.
 
 ### Continued development
 
-There is so much more to learn in the world of React, and while I do feel that I have a good grip on its implementation, I wish to work on more React projects and better my understanding of it. This way, I can not only gain more experience and comfortability using it, but I can also seamlessly incorporate it and its methods into other projects.
+Using Node and Express is a great starting point in the world of backend development. However I would love to not only expand my knowledge of these languages by using them in more projects, but I would also like to learn other backend languages such as C# or Python to see what else backend is capable of.
+
 
 ## Author
 
